@@ -1,5 +1,6 @@
 import {test, expect, Browser, chromium, Page} from '@playwright/test';
 import { readCSV_Util } from './utils/Parsers';
+import path from 'path';
 
 test.describe('Data Driven Tests with CSV', () => {
     // For typescript strong typing
@@ -7,7 +8,7 @@ test.describe('Data Driven Tests with CSV', () => {
         username: string;
         password: string;
     }
-    let csvFilePath = '../handson/data/loginData.csv'
+    let csvFilePath = path.join(process.cwd(),'data','loginData.csv');  // '../handson/data/loginData.csv'
     let loginData = readCSV_Util(csvFilePath) as LoginData[];
     // Launch the browser and create a new page
     let browser: Browser;

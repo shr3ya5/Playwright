@@ -9,7 +9,7 @@ test.describe('Data Driven Tests with XLSX', () => {
         username: string;
         password: string;
     }
-    const XLSXFilePath = path.resolve(__dirname, 'C:/handson/data/loginData.xlsx');
+    const XLSXFilePath = path.join(process.cwd(),'data','loginData.xlsx');
     const workbook = XLSX.readFile(XLSXFilePath);
     const worksheetName = workbook.SheetNames[0!];
     const worksheet = workbook.Sheets[worksheetName!];
