@@ -38,7 +38,7 @@ test.describe('Data Driven Tests with XLSX', () => {
     })
     // For loop for data driven tests
     loginData.forEach((data) => {
-        test(`Login Tests with XLSX Data Driven Approach - Test ${data.testcase}`, async () => {
+       test(`Login Tests with XLSX Data Driven Approach - Test ${data.testcase}`, async () => {
             // Navigate to the Orange HRM login page and perform login actions
             await test.step('Navigate to Orange HRM Login Page', async () => {
                 await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login', { waitUntil: 'domcontentloaded'});

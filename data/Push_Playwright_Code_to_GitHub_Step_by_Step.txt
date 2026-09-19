@@ -1,0 +1,244 @@
+HOW TO PUSH A PLAYWRIGHT PROJECT TO GITHUB
+==========================================
+
+This guide explains how to push an existing Playwright project from VS Code to a GitHub repository and verify that all tracked files were uploaded successfully.
+
+STEP 1: OPEN THE TERMINAL IN YOUR PLAYWRIGHT PROJECT
+----------------------------------------------------
+1. Open your Playwright project in VS Code.
+2. Select Terminal > New Terminal.
+3. Make sure the terminal is opened in the project root folder where package.json and playwright.config.ts are located.
+4. Verify the current folder contents.
+
+Windows Command Prompt or PowerShell:
+
+dir
+
+Git Bash:
+
+ls
+
+You should see files and folders similar to:
+
+package.json
+playwright.config.ts
+testsdata
+
+STEP 2: CHECK WHETHER GIT IS ALREADY INITIALIZED
+------------------------------------------------
+Run:
+
+git status
+
+If you receive this error:
+
+fatal: not a git repository
+
+Initialize Git by running:
+
+git init
+
+
+STEP 3: CHECK OR CREATE THE .gitignore FILE
+-------------------------------------------
+Before adding your files, ensure that the project has a .gitignore file containing:
+
+node_modules/
+playwright-report/
+test-results/
+blob-report/
+.env
+
+This prevents dependencies, generated reports, test results, and environment secrets from being uploaded.
+
+If any of these files or folders were already staged before updating .gitignore, run:
+
+git rm -r --cached .
+git add .
+
+
+STEP 4: ADD ALL PROJECT FILES
+-----------------------------
+Run:
+
+git add .
+
+Verify the staged files:
+
+git status
+
+The files should appear under:
+
+Changes to be committed
+
+Optional: List every file that will be included in the commit:
+
+git diff --cached --name-only
+
+
+STEP 5: CREATE THE INITIAL COMMIT
+---------------------------------
+Run:
+
+git commit -m "Initial Playwright project commit"
+
+
+STEP 6: COPY THE GITHUB REPOSITORY URL
+--------------------------------------
+1. Open your repository on GitHub.
+2. Click the Code button.
+3. Copy either the HTTPS or SSH repository URL.
+
+HTTPS format:
+
+https://github.com/<username>/<repository-name>.git
+
+SSH format:
+
+git@github.com:<username>/<repository-name>.git
+
+
+STEP 7: CONNECT THE LOCAL PROJECT TO GITHUB
+-------------------------------------------
+Replace the sample URL with your actual repository URL:
+
+git remote add origin https://github.com/<username>/<repository-name>.git
+
+Verify the remote connection:
+
+git remote -v
+
+Expected output:
+
+origin  https://github.com/<username>/<repository-name>.git (fetch)
+origin  https://github.com/<username>/<repository-name>.git (push)
+
+If an origin remote already exists, update it instead:
+
+git remote set-url origin https://github.com/<username>/<repository-name>.git
+
+
+STEP 8: ENSURE THE BRANCH NAME IS MAIN
+--------------------------------------
+Run:
+
+git branch -M main
+
+
+STEP 9: PUSH THE CODE TO GITHUB
+-------------------------------
+Run:
+
+git push -u origin main
+
+If prompted, complete the GitHub sign-in or authentication process.
+
+A successful push usually shows output similar to:
+
+Enumerating objects...
+Counting objects...
+Writing objects...
+Branch 'main' set up to track 'origin/main'.
+
+
+STEP 10: VERIFY THE FILES ON THE GITHUB WEBSITE
+------------------------------------------------
+1. Open the repository page on GitHub.
+2. Refresh the page.
+3. Verify that the expected project items are visible, such as:
+
+package.json
+playwright.config.ts
+tests/
+data/
+.gitignore
+
+The node_modules folder should NOT be present.
+The .env file should NOT be present.
+
+Open important files and folders on GitHub to confirm that their latest content is displayed.
+
+
+STEP 11: VERIFY THE LOCAL AND REMOTE COMMIT
+-------------------------------------------
+Run:
+
+git fetch origin
+
+git rev-parse HEAD
+
+git rev-parse origin/main
+
+The two commit IDs should be identical. This confirms that the local main branch and GitHub's main branch point to the same commit.
+
+You can also run:
+
+git log --oneline -1
+
+git log origin/main --oneline -1
+
+The latest commit ID and message should match.
+
+
+STEP 12: CONFIRM THE WORKING TREE IS CLEAN
+------------------------------------------
+Run:
+
+git status
+
+Expected output:
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+This confirms that all currently tracked local changes have been committed and pushed.
+
+
+OPTIONAL: COUNT THE TRACKED FILES
+---------------------------------
+Windows Command Prompt:
+
+git ls-files | find /c /v ""
+
+PowerShell:
+
+(git ls-files).Count
+
+Git Bash:
+
+git ls-files | wc -l
+
+Note: GitHub may display folders rather than every file on the repository's main page. The commit comparison in Step 11 is a stronger verification that the pushed branch matches your local commit.
+
+
+COMMANDS FOR FUTURE CHANGES
+---------------------------
+Whenever you modify or add Playwright files, run:
+
+git status
+git add .
+git commit -m "Describe the changes"
+git push
+
+Then verify:
+
+git status
+
+Expected result:
+
+nothing to commit, working tree clean
+
+
+QUICK COMMAND SUMMARY
+---------------------
+git init
+git status
+git add .
+git commit -m "Initial Playwright project commit"
+git remote add origin https://github.com/<username>/<repository-name>.git
+git branch -M main
+git push -u origin main
+git fetch origin
+git status
