@@ -63,7 +63,6 @@ jobs:
         with:
           pattern: blob-report-*
           path: all-blob-reports
-          merge-multiple: true
 
       - name: Merge Playwright Reports
         run: npx playwright merge-reports --reporter html ./all-blob-reports
