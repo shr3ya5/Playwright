@@ -37,7 +37,7 @@ test.describe('Data Driven Tests with XLSX', () => {
         await browser?.close();
     })
     // For loop for data driven tests
-    loginData.forEach((data) => {
+    loginData.forEach((data,index) => {
        test(`Login Tests with XLSX Data Driven Approach - Test ${data.testcase}`, async () => {
             // Navigate to the Orange HRM login page and perform login actions
             await test.step('Navigate to Orange HRM Login Page', async () => {
@@ -54,10 +54,16 @@ test.describe('Data Driven Tests with XLSX', () => {
                 // Only expect dashboard for valid credentials
                 if (data.username === 'Admin' && data.password === 'admin123') {
                     await expect(await page.locator('h6')).toHaveText('Dashboard');
-                    await page.screenshot({ path: `screenshots/ Test ${data.testcase}_success.png` });
+                    await page.screenshot({
+                        path: test.info().outputPath(`Test_${index + 1}_success.png`)
+                    });
+                    //await page.screenshot({ path: `screenshots/ Test ${data.testcase}_success.png` });
                 } else {
                     // Handle invalid login scenarios
-                    await page.screenshot({ path: `screenshots/ Test ${data.testcase}_failed.png` });
+                    await page.screenshot({
+                        path: test.info().outputPath(`Test_${index + 1}_failed.png`)
+                    });
+                    //await page.screenshot({ path: `screenshots/ Test ${data.testcase}_failed.png` });
                 }
             });
         });
