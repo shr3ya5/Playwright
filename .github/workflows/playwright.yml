@@ -33,8 +33,25 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
+      - name: Debug blob report
+        run: |
+          echo "Current directory:"
+          pwd
+
+          echo ""
+          echo "Blob report folders:"
+          find . -type d | grep blob || true
+
+          echo ""
+          echo "PNG Files:"
+          find . -name "*.png" | wc -l
+
+          echo ""
+          echo "JSONL Files:"
+          find . -name "*.jsonl"
+
       - name: Upload blob report
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v5
         if: always()
         with:
           name: blob-report-${{ matrix.shardIndex }}
@@ -63,16 +80,46 @@ jobs:
         with:
           pattern: blob-report-*
           path: all-blob-reports
-          merge-multiple: true
 
       - name: List workspace contents
         run: |
+          echo "Current directory:"
           pwd
+
+          echo ""
+          echo "Workspace files:"
           ls -la
+
+          echo ""
+          echo "Directory structure:"
           find . -type d | sort
+
+      - name: Count downloaded screenshots
+        run: |
+          echo "PNG files before merge:"
+          find all-blob-reports -name "*.png" | wc -l
+
+      - name: Verify blob reports
+        run: |
+          echo "JSONL files:"
+          find all-blob-reports -name "*.jsonl"
+
+          echo ""
+          echo "PNG files:"
+          find all-blob-reports -name "*.png" | head -20
 
       - name: Merge Playwright Reports
         run: npx playwright merge-reports --reporter html ./all-blob-reports
+
+      - name: Count merged screenshots
+        run: |
+          echo "PNG files after merge:"
+          find playwright-report -name "*.png" | wc -l
+
+      - name: Inspect merged report
+        run: |
+          echo "Merged report files:"
+          find playwright-report -type f | sort | head -200
 
       - name: Upload merged Playwright Report
         uses: actions/upload-artifact@v5
