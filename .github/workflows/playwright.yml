@@ -63,7 +63,11 @@ jobs:
         with:
           pattern: blob-report-*
           path: all-blob-reports
+          merge-multiple: true
 
+      - name: Verify merged blob reports
+        run: |
+          find all-blob-reports -type f
 
       - name: Inspect downloaded blob reports
         run: |
