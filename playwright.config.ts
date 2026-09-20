@@ -42,7 +42,7 @@ const baseConfig: any = {
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    screenshots: 'on', //only-on-failure, on, off, between-retry
+    screenshot: 'on', //only-on-failure, on, off, between-retry
   },
 
   /* Configure projects for major browsers */
