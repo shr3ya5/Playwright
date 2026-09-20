@@ -1,5 +1,5 @@
 import {test, expect, Browser, chromium, Page} from '@playwright/test';
-import { readCSV_Util } from './utils/Parsers';
+import { readCSV_Util } from '../utils/Parsers';
 import path from 'path';
 
 test.describe('Data Driven Tests with CSV', () => {

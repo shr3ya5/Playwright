@@ -1,5 +1,5 @@
 import {test, expect, Browser, chromium, Page} from '@playwright/test';
-import loginData from '../data/loginData.json';
+import loginData from '../../data/loginData.json';
 
 test.describe('Data Driven Tests with JSON', () => {
     
