@@ -25,6 +25,8 @@ const baseConfig: any = {
   forbidOnly: isCI,
   /* Retry on CI only */
   retries: isCI ? 2 : 0,
+  /* Workers for local parallel execution*/
+  workers: process.env.CI ? 4 : 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI? [['blob', { path: 'blob-report' }],['dot'],['allure-playwright']]: [['html'],['allure-playwright']],
   //reporter: [['blob', {path: 'blob-report'}],['dot'],['allure-playwright'],['html']],

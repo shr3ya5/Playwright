@@ -1,5 +1,5 @@
 import {test, expect, Browser, chromium, Page} from '@playwright/test';
-
+import logger from '../utils/logger';
 test.describe('Data Driven Tests with Array', () => {
     // Launch the browser and create a new page
     let browser: Browser;
@@ -16,19 +16,23 @@ test.describe('Data Driven Tests with Array', () => {
     // Before all tests, you can perform any setup required for the test suite
     test.beforeAll('Set up', async () => {
         browser = await chromium.launch({ headless: process.env.CI ? true : false});
+        logger.info('Executed before All');
     });
     // Before each test
     test.beforeEach('Precondition', async () => {
         context = await browser.newContext();
         page = await context.newPage();
+        logger.info('Executed before Each');
     });
      // Close the page and browser after each test
     test.afterEach('Postcondition', async ()=> {
         await page.close();
         await context.close();
+        logger.info('Executed after Each');
     }) 
     test.afterAll('Clean up', async () => {
         await browser?.close();
+        logger.info('Executed after All');
     })
     // For loop for data driven tests
     loginData.forEach((data, index) => {
@@ -38,6 +42,7 @@ test.describe('Data Driven Tests with Array', () => {
                 await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login', { waitUntil: 'domcontentloaded'});
                 await page.waitForSelector('input[name="username"]');
                 await expect(page).toHaveTitle(/OrangeHRM/);
+                logger.info('Executed Navigation Step');
         });
             await test.step('Perform login with credentials', async () => {
                 await page.fill('input[name="username"]', data.username);
@@ -53,6 +58,7 @@ test.describe('Data Driven Tests with Array', () => {
                     // Handle invalid login scenarios
                     await page.screenshot({ path: `screenshots/ Test ${index + 1}_failed.png` });
                 }
+                logger.info('Executed Login Step');
             });
         });
     });
