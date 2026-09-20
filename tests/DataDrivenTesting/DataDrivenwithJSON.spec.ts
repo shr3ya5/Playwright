@@ -10,7 +10,7 @@ test.describe('Data Driven Tests with JSON', () => {
     
     // Before all tests, you can perform any setup required for the test suite
     test.beforeAll('Set up', async () => {
-        browser = await chromium.launch({ headless: false });
+        browser = await chromium.launch({ headless: process.env.CI ? true : false });
     });
     // Before each test
     test.beforeEach('Precondition', async () => {
@@ -23,7 +23,7 @@ test.describe('Data Driven Tests with JSON', () => {
         await context.close();
     }) 
     test.afterAll('Clean up', async () => {
-        await browser.close();
+        await browser?.close();
     })
     // For loop for data driven tests
     loginData.forEach((data, index) => {
