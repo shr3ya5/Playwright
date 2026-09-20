@@ -109,7 +109,7 @@ jobs:
           find all-blob-reports -name "*.png" | head -20
 
       - name: Merge Playwright Reports
-        run: npx playwright merge-reports --reporter html ./all-blob-reports
+        run: npx playwright merge-reports --reporter html ./all-blob-reports/*/blob-report
 
       - name: Count merged screenshots
         run: |
