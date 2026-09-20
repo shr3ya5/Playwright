@@ -64,18 +64,15 @@ jobs:
           pattern: blob-report-*
           path: all-blob-reports
 
+
       - name: Inspect downloaded blob reports
         run: |
-          echo "===== DIRECTORY STRUCTURE ====="
+          echo "===== DIREC*ORIES ====="
           find all-blob-reports -type d | sort
 
           echo ""
-          echo "===== REPORT FILES ====="
-          find all-blob-reports -name "*.jsonl"
-
-          echo ""
-          echo "===== SCREENSHOT COUNT BEFORE MERGE ====="
-          find all-blob-reports -name "*.png" | wc -l
+          echo "===== FILES ====="
+          find all-blob-reports -type f | sort
 
       - name: Merge Playwright Reports
         run: npx playwright merge-reports --reporter html ./all-blob-reports
