@@ -26,7 +26,7 @@ const baseConfig: any = {
   /* Retry on CI only */
   retries: isCI ? 2 : 0,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['allure-playwright'],['html']],
+  reporter: [['blob', {path: 'blob-report'}],['dot'],['allure-playwright'],['html']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */

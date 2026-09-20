@@ -25,3 +25,8 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
