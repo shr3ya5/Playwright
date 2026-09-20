@@ -1,0 +1,79 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: DataDrivenwithArray.spec.ts >> Orange HRM Login Data Driven Tests with Array >> Login Tests with Data Driven Approach - User: Admin (Test 2)
+- Location: tests\DataDrivenwithArray.spec.ts:31:13
+
+# Error details
+
+```
+Error: page.goto: net::ERR_ABORTED; maybe frame was detached?
+Call log:
+  - navigating to "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login", waiting until "networkidle"
+
+```
+
+# Test source
+
+```ts
+  1  | import {test, expect} from '@playwright/test';
+  2  | import {chromium, Browser, Page} from '@playwright/test';
+  3  | test.describe('Orange HRM Login Data Driven Tests with Array', () => {
+  4  | 
+  5  |     const loginData = [
+  6  |         { username: 'Admin', password: 'admin123' },
+  7  |         { username: 'Admin', password: 'wrongpassword' },
+  8  |        /* { username: 'WrongUser', password: 'admin123' },
+  9  |         { username: '', password: 'admin123' },
+  10 |         { username: 'Admin', password: '' },
+  11 |         { username: '', password: '' }*/
+  12 |     ];
+  13 | 
+  14 |     let page : Page;
+  15 |     let browser : Browser;
+  16 |     let context : any;
+  17 |     
+  18 |     test.beforeEach(async () => {
+  19 |         browser = await chromium.launch({ headless: false });
+  20 |         context = await browser.newContext();
+  21 |         page = await context.newPage();
+  22 |     });
+  23 | 
+  24 |     test.afterEach(async () => {
+  25 |         await page.close();
+  26 |         await context.close();
+  27 |         await browser.close();
+  28 |     });
+  29 | 
+  30 |     loginData.forEach((data, index) => {
+  31 |         test(`Login Tests with Data Driven Approach - User: ${data.username} (Test ${index + 1})`, async () => {
+  32 |             test.step('Navigate to Orange HRM Login Page', async () => {
+> 33 |                 await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login', { waitUntil: 'networkidle' });
+     |                            ^ Error: page.goto: net::ERR_ABORTED; maybe frame was detached?
+  34 |                 await page.waitForSelector('input[name="username"]');
+  35 |                 await page.waitForLoadState('networkidle');
+  36 |                 await expect(page).toHaveTitle(/OrangeHRM/);
+  37 |             });
+  38 |             test.step('Perform login with credentials', async () => {
+  39 |                 await page.fill('input[name="username"]', data.username);
+  40 |                 await page.fill('input[name="password"]', data.password);
+  41 |                 await page.click('button[type="submit"]');
+  42 |                 
+  43 |                 // Only expect dashboard for valid credentials
+  44 |                 if (data.username === 'Admin' && data.password === 'admin123') {
+  45 |                     await expect(await page.locator('h6')).toHaveText('Dashboard');
+  46 |                     await page.screenshot({ path: `screenshots/${data.username}_success.png` });
+  47 |                 } else {
+  48 |                     // Handle invalid login scenarios
+  49 |                     await page.screenshot({ path: `screenshots/${data.username}_failed.png` });
+  50 |                 }
+  51 |             });
+  52 |         });
+  53 |     });
+  54 | });
+```
