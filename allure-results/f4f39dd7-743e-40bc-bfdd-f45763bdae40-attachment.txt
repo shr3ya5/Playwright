@@ -1,4 +1,0 @@
-[${timestamp}] ${level} : ${message}
-[${timestamp}] ${level} : ${message}
-[${timestamp}] ${level} : ${message}
-[${timestamp}] ${level} : ${message}
