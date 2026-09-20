@@ -26,13 +26,15 @@ const baseConfig: any = {
   /* Retry on CI only */
   retries: isCI ? 2 : 0,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['blob', {path: 'blob-report'}],['dot'],['allure-playwright'],['html']],
+  reporter: process.env.CI? [['blob', { path: 'blob-report' }],['dot'],['allure-playwright']]: [['html'],['allure-playwright']],
+  //reporter: [['blob', {path: 'blob-report'}],['dot'],['allure-playwright'],['html']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     baseURL: 'https://www.google.com',
     /* Run tests headless by default; set to false for debugging. */
-    headless: true,
+    headless: process.env.CI ? true : false,
+    //headless: true,
     /* Disable individual action timeout (use expect timeouts instead) */
     actionTimeout: 0,
     /* Navigation timeout (ms) */
