@@ -2,6 +2,13 @@
   "name": "handson",
   "version": "1.0.0",
   "description": "",
+  "scripts": {
+    "clean:reports": "rimraf allure-report allure-results && mkdirp allure-report allure-results",
+    "generate:reports": "npx allure generate ./allure-results --clean",
+    "open:reports": "npx allure open ./allure-report",
+    "execute:script": "npx playwright test ./tests/DataDrivenTesting/ --project=chromium --workers=4",
+    "allure": "npm run generate:reports && npm run open:reports"
+  },
   "main": "index.js",
   "keywords": [],
   "author": "",
@@ -22,14 +29,5 @@
     "playwright-core": "^1.63.0",
     "winston": "^3.19.0",
     "xlsx": "^0.18.5"
-  },
-  "scripts": {
-    "clean:reports": "rimraf allure-report allure-results && mkdirp allure-report allure-results",
-    "generate:reports": "npx allure generate ./allure-results --clean",
-    "open:reports": "npx allure open ./allure-report",
-    "pretest": "npm run clean:reports",
-    "posttest": "npm run generate:reports && npm run open:reports",
-    "execute:script": "npx playwright test --project=chromium",
-    "test": "npm run execute:script; npm run posttest"
   }
 }
