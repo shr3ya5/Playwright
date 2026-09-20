@@ -28,7 +28,7 @@ const baseConfig: any = {
   /* Workers for local parallel execution*/
   workers: process.env.CI ? 4 : 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: process.env.CI? [['blob', { outputDir: `blob-report-${process.env.PLAYWRIGHT_SHARD}` }],['dot'],['allure-playwright']]: [['html'],['allure-playwright']],
+  reporter: process.env.CI? [['blob', { outputDir: 'blob-report' }],['dot'],['allure-playwright']]: [['html'],['allure-playwright']],
   //reporter: [['blob', {path: 'blob-report'}],['dot'],['allure-playwright'],['html']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
