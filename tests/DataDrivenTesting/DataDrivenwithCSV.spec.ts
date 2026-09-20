@@ -51,13 +51,13 @@ test.describe('Data Driven Tests with CSV', () => {
                 if (data.username === 'Admin' && data.password === 'admin123') {
                     await expect(await page.locator('h6')).toHaveText('Dashboard');
                     await page.screenshot({
-                        path: test.info().outputPath(`Test_${index + 1}_success.png`)
+                        path: test.info().outputPath(`${test.info().title}_success.png`)
                     });
                     //await page.screenshot({ path: `screenshots/ Test ${index + 1}_success.png` });
                 } else {
                     // Handle invalid login scenarios
                     await page.screenshot({
-                        path: test.info().outputPath(`Test_${index + 1}_failed.png`)
+                        path: test.info().outputPath(`${test.info().title}_failed.png`)
                     });
                     //await page.screenshot({ path: `screenshots/ Test ${index + 1}_failed.png` });
                 }
