@@ -1,5 +1,0 @@
-[2026-09-20T12:09:01.868Z] info: Executed before Each
-[2026-09-20T12:09:08.859Z] info: Executed Navigation Step
-[2026-09-20T12:09:13.732Z] info: Executed Login Step
-[2026-09-20T12:09:13.926Z] info: Executed after Each
-[2026-09-20T12:09:15.979Z] info: Executed after All

@@ -6,8 +6,10 @@
     "clean:reports": "rimraf allure-report allure-results && mkdirp allure-report allure-results",
     "generate:reports": "npx allure generate ./allure-results --clean",
     "open:reports": "npx allure open ./allure-report",
-    "execute:script": "npx playwright test ./tests/DataDrivenTesting/ --project=chromium --workers=4",
-    "allure": "npm run generate:reports && npm run open:reports"
+    "pretest": "npm run clean:reports",
+    "posttest": "npm run generate:reports && npm run open:reports",
+    "execute:script": "npx playwright test ./tests/DataDrivenTesting/ --project=chromium",
+    "test": "npm run pretest && npm run execute:script && npm run posttest"
   },
   "main": "index.js",
   "keywords": [],
