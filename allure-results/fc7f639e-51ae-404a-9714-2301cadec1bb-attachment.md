@@ -1,0 +1,60 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: HandsOnUseCases\Alerts&Prompts.spec.ts >> Handling Alerts and Prompts @alerts >> TS-01: Handle Alert popup
+- Location: tests\HandsOnUseCases\Alerts&Prompts.spec.ts:23:9
+
+# Error details
+
+```
+Error: dialog.accept: Target page, context or browser has been closed
+```
+
+# Test source
+
+```ts
+  1  | import { test, expect, Locator } from '@playwright/test';
+  2  | import { chromium, Page, Browser } from '@playwright/test';
+  3  | test.describe('Handling Alerts and Prompts @alerts', () => {
+  4  |     
+  5  |     let url = "https://the-internet.herokuapp.com/javascript_alerts";
+  6  |     
+  7  |     let alertButton : Locator;
+  8  |     let confirmButton: Locator;
+  9  |     let promptButton: Locator;
+  10 |     let resultText: Locator;
+  11 |     let page: Page;
+  12 |     let browser: Browser;
+  13 | 
+  14 |     test.beforeAll('Initialize Browser', async() => {
+  15 |         browser = await chromium.launch();
+  16 |     });
+  17 |     test.beforeEach('Initialize Page', async() => {
+  18 |         page = await browser.newPage();
+  19 |         await page.goto(url);
+  20 |         await page.waitForLoadState('networkidle');
+  21 |     });
+  22 |     // Verify search page elements
+  23 |     test('TS-01: Handle Alert popup', {tag: '@smoke'}, async () => {
+  24 |         alertButton = await page.getByRole('button', { name: 'Click for JS Alert' });
+  25 |         // page.on is always before clicking the button that causes the popup
+  26 |         page.on('dialog', async dialog => {
+  27 |             await console.log('Alert says: ', dialog.message());
+> 28 |             await dialog.accept();
+     |                          ^ Error: dialog.accept: Target page, context or browser has been closed
+  29 |         });
+  30 |         alertButton.click();
+  31 |     });
+  32 |     test.afterEach('Close Page', async() => {
+  33 |         await page.close();
+  34 |     });
+  35 |     test.afterAll('Close Browser', async() => {
+  36 |         await browser.close();
+  37 |     });
+  38 | });
+```

@@ -1,0 +1,1 @@
+{"attachments":[],"errors":[{"message":"Close Browser failed: \"afterAll\" hook timeout of 60000ms exceeded.","trace":"\"afterAll\" hook timeout of 60000ms exceeded.\n    at C:\\HandsOn\\tests\\HandsOnUseCases\\Alerts&Prompts.spec.ts:40:10","timestamp":1790062025005}]}

@@ -1,0 +1,2 @@
+Alert says: I am a JS prompt
+Result Text: You entered: Dismissing the prompt

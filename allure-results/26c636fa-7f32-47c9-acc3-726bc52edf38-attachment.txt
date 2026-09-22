@@ -1,0 +1,7 @@
+Alert says: I am a JS Confirm
+Result Text: async innerText(options) {
+        return await this._frame.innerText(this._selector, { strict: true, ...options });
+      }
+Result Text: async innerText(options) {
+        return await this._frame.innerText(this._selector, { strict: true, ...options });
+      }

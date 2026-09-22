@@ -1,0 +1,4 @@
+Alert says: I am a JS prompt
+Result Text: async innerText(options) {
+        return await this._frame.innerText(this._selector, { strict: true, ...options });
+      }

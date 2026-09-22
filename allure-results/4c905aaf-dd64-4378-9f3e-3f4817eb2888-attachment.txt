@@ -1,0 +1,2 @@
+logo attribute: Google
+searchButton attribute: null

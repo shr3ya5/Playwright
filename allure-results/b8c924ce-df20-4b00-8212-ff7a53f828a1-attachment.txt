@@ -1,0 +1,4 @@
+Alert says: I am a JS Alert
+Result Text: async textContent(options) {
+        return await this._frame.textContent(this._selector, { strict: true, ...options });
+      }
