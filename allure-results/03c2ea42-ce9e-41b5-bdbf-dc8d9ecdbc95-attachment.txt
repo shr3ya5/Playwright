@@ -1,0 +1,2 @@
+Alert says: I am a JS Confirm
+Result Text: You clicked: Ok
