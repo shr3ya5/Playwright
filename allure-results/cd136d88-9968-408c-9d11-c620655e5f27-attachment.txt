@@ -1,0 +1,27 @@
+Frame Name: name() {
+        return this._name || "";
+      }
+Frame URL: url() {
+        return this._url;
+      }
+Frame Content: async innerText(selector, options = {}) {
+        return (await this._channel.innerText({ selector, ...options }, this._timeout(options))).value;
+      }
+Frame Name: name() {
+        return this._name || "";
+      }
+Frame URL: url() {
+        return this._url;
+      }
+Frame Content: async innerText(selector, options = {}) {
+        return (await this._channel.innerText({ selector, ...options }, this._timeout(options))).value;
+      }
+Frame Name: name() {
+        return this._name || "";
+      }
+Frame URL: url() {
+        return this._url;
+      }
+Frame Content: async innerText(selector, options = {}) {
+        return (await this._channel.innerText({ selector, ...options }, this._timeout(options))).value;
+      }

@@ -1,0 +1,32 @@
+Frame Name: 
+Frame URL: https://www.tutorialspoint.com/selenium/practice/frames.php
+Frame Content: Selenium - Automation Practice Form
+Selenium Tutorial
+Elements
+Forms
+Alerts, Frames & Windows
+Browser Windows
+Alerts
+Frames
+Nested Frames
+Modal Dialogs
+Widgets
+Interaction
+Frames
+
+Sample Iframe page There are 2 Iframes in this page. Use browser inspecter or firebug to check out the HTML source. In total you can switch between the parent frame, which is this window, and the two frames below
+
+Iframe 1
+Iframe 2
+Frame Name: 
+Frame URL: 
+Frame Content: Selenium - Automation Practice Form
+Selenium Tutorial
+New Tab
+Sample New Tab
+Frame Name: 
+Frame URL: 
+Frame Content: Selenium - Automation Practice Form
+Selenium Tutorial
+New Tab
+Sample New Tab

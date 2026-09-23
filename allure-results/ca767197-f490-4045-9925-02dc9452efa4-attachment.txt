@@ -1,0 +1,9 @@
+Frame Name: 
+Frame URL: https://www.tutorialspoint.com/selenium/practice/frames.php
+Frame Content: [object Promise]
+Frame Name: 
+Frame URL: 
+Frame Content: [object Promise]
+Frame Name: 
+Frame URL: 
+Frame Content: [object Promise]
