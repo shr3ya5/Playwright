@@ -20,8 +20,7 @@ test.describe('Handling Radios Checkboxes and Tables @RCT', () => {
     });
     test.beforeEach('Initialize Page', async() => {
         page = await browser.newPage();
-        await page.goto(url, {waitUntil: 'networkidle', timeout:60000});
-        await page.waitForURL(url);
+        await page.goto(url, {waitUntil: 'domcontentloaded', timeout:60000});
     });
     test('TS-01: Clicking on Radio Button', {tag: '@smoke'}, async () => {
         radioButton1 = await page.locator('input[value="radio1"]');
