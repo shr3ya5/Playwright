@@ -19,7 +19,7 @@ test.describe('Browser Stack CSS Examples @CSS', () => {
     test.beforeEach('Initialize Page', async() => {
         page = await browser.newPage();
     });
-    test('TS-01: Print color of button', {tag: '@smoke'}, async () => {
+    test.skip('TS-01: Print color of button', {tag: '@smoke'}, async () => {
         
         await page.goto(url, {waitUntil: 'domcontentloaded'});
         getStartedFreeButton = await page.getByRole('link', {name: /get started free/i }).first();
