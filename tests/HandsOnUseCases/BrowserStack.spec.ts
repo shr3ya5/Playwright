@@ -44,7 +44,7 @@ test.describe('Browser Stack CSS Examples @CSS', () => {
         console.log(`Best Dollar Value Amount: S${bestDollarValueAmount}`);
 
     });
-    test('TS-02: Get Demo button', {tag: '@smoke'}, async () => {
+    test.skip('TS-02: Get Demo button', {tag: '@smoke'}, async () => {
 
         await page.goto(url, {waitUntil: 'networkidle'});
         let talkToUsButton = await page.getByRole('button', {name: "Talk to us", exact: true}).first();

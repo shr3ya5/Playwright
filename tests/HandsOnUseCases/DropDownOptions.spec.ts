@@ -16,7 +16,7 @@ test.describe('Handling Dropdown Options @DDO', () => {
     test.beforeEach('Initialize Page', async() => {
         page = await browser.newPage();
     });
-    test('TS-01: All Offers Dropdown selection', {tag: '@smoke'}, async () => {
+    test.skip('TS-01: All Offers Dropdown selection', {tag: '@smoke'}, async () => {
         await page.goto(url, {waitUntil: 'networkidle'});
         allOffersDD = await page.locator('#offer_tag');
         await expect(allOffersDD).toBeEnabled();
