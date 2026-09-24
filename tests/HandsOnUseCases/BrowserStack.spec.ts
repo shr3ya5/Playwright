@@ -46,13 +46,12 @@ test.describe('Browser Stack CSS Examples @CSS', () => {
     });
     test('TS-02: Get Demo button', {tag: '@smoke'}, async () => {
 
-        await page.goto(url, {waitUntil: 'domcontentloaded'});
+        await page.goto(url, {waitUntil: 'networkidle'});
         let talkToUsButton = await page.getByRole('button', {name: "Talk to us", exact: true}).first();
         //use control.evaluate(el => getComputedStyle(el).backgroundColor) to fetch the background color
         await talkToUsButton.hover();
         await talkToUsButton.dblclick();
-
-        let popupTitle = await page.locator('#popUpCsfModalTitle2');
+        let popupTitle = await page.locator('#popUpCsfModalTitle2').first();
         let Title = await popupTitle.innerText();
         console.log(`Popup Title: ${Title}`);
     });
