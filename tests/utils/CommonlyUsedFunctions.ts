@@ -1,6 +1,8 @@
 export function generatePhoneNumber(): string {
-    let generatedphoneNumber = Math.floor(
-        100000000 + Math.random() * 900000000
-    )
-    return (generatePhoneNumber.toString());
+    const min = 100000000;
+    const max = 999999999;
+    const phoneNumber = (
+                Math.floor(Math.random() * (max - min + 1)) + min
+    ).toString();
+    return phoneNumber;
 }
