@@ -1,8 +1,9 @@
 import {Page, Locator, expect} from '@playwright/test';
+import {generatePhoneNumber} from '../../HandsOn/tests/utils/CommonlyUsedFunctions';
 
 export class FirstClassExample {
     private readonly page: Page;
-    private readonly url: string;
+    //private readonly url: string;
     private readonly name: Locator;
     private readonly email: Locator;
     private readonly phone: Locator;
@@ -23,7 +24,7 @@ export class FirstClassExample {
 
     constructor(page: Page){
         this.page = page;
-        this.url = "https://testautomationpractice.blogspot.com/";
+        //this.url = "https://testautomationpractice.blogspot.com/";
         this.name = page.getByPlaceholder('Enter Name');
         this.email = page.getByPlaceholder('Enter EMail');
         this.phone = page.getByPlaceholder('Enter Phone'); 
@@ -42,21 +43,37 @@ export class FirstClassExample {
         this.uploadMultipleFiles = page.locator('#multipleFilesInput');
         this.tableRow = page.locator('table[name="BookTable"] tbody tr').nth(2);
     }
-    // Function for interacting with all elements on the page
-    async CommonFunction(){
 
-        const phoneNumber = Math.floor(
-                                100000000 + Math.random() * 900000000
-                            ).toString();
+    // Navigate to the page 
+    async navigateToPage(url: string){
+        //Navigate to page
+        await this.page.goto(url, {waitUntil: 'networkidle'});
+    }
+    async allTextInputs(){
+        //use util function to get the phone number
+        const phoneNumber = generatePhoneNumber();
 
-            //Navigate to page
-        await this.page.goto(this.url, {waitUntil: 'networkidle'});
-
-        // Fill input values
+        // Input values in all text boxes
         await this.name.fill('Test test');
         await this.email.fill('Test@test.com');
         await this.phone.fill(phoneNumber);
         await this.address.fill('Whatever street');
+
+    }
+    async validateallTextInputs(){
+        await expect(this.name).toBeVisible();
+        await expect(this.email).toBeEnabled();
+        await expect(this.phone).not.toBeEmpty();
+        let addressText = await this.address.inputValue();
+        await expect(addressText).toBe('Whatever street');
+    }
+    async uploadInputFiles(singleFile: string, multipleFiles: string[]){
+        //Upload files
+        await this.uploadFile.setInputFiles(singleFile);
+        await this.uploadMultipleFiles.setInputFiles(multipleFiles);
+    }
+    // Function for interacting with all elements on the page
+    async CommonFunction(){
 
         //Select RADIO AND CHECKBOXES
         await this.gender.check();
@@ -82,14 +99,5 @@ export class FirstClassExample {
         let TableContents = await this.tableRow.allInnerTexts();
         console.log(`Static Table Row content: ${TableContents}`);
 
-        //Upload files
-        await this.uploadFile.setInputFiles('./data/Push_Playwright_Code_to_GitHub_Step_by_Step.txt');
-        await this.uploadMultipleFiles.setInputFiles([
-            './data/loginData.csv',
-            './data/loginData.json'
-        ]);
     }
-    
-
-    
 };

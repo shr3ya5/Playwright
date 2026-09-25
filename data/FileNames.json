@@ -1,0 +1,7 @@
+{
+    "singleFile": "./data/Push_Playwright_Code_to_GitHub_Step_by_Step.txt",
+    "multipleFiles": [
+                "./data/loginData.csv",
+                "./data/loginData.json"
+    ]
+}
