@@ -16,7 +16,7 @@ test.describe('File Uploads and Downloads', () => {
         let uploadButton = page.getByRole('button', {name: /Upload/});
         let popupOKButton = page.getByRole('button', {name: /Ok/});
         //Login
-        await page.goto(url,{waitUntil: 'networkidle'});
+        await page.goto(url,{waitUntil: 'domcontentloaded'});
         await usernameInput.fill(username);
         await passwordInput.fill(password);
         await loginButton.click();
@@ -46,7 +46,7 @@ test.describe('File Uploads and Downloads', () => {
         let downloadLink = page.getByRole('link', {name: "Download"});
         
         //Login
-        await page.goto(url,{waitUntil: 'networkidle'});
+        await page.goto(url,{waitUntil: 'domcontentloaded'});
         await usernameInput.fill(username);
         await passwordInput.fill(password);
         await loginButton.click();
