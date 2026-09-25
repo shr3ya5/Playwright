@@ -13,7 +13,7 @@ test.describe('Report Generation Example', () => {
         let FromOption = page.locator('li').filter({hasText: "New Delhi, India"});
         let To = page.getByLabel('To');
         let ToOption = page.locator('li').filter({hasText: "Bengaluru, India"});
-        let departureDate = page.locator('div[aria-disabled="false"][role="gridcell"]').first();
+        let departureDate = page.locator('div[aria-disabled="false"][role="gridcell"]').nth(2);
         let returnDate = page.locator('div[aria-disabled="false"][role="gridcell"]').last();
         let searchButton = page.locator('a').filter({hasText: "Search"});
         let AIExpressFirstFlight = page.locator('div[class="flightCard__mainRow"]').filter({hasText: "Air India Express"}).first();
@@ -54,10 +54,10 @@ test.describe('Report Generation Example', () => {
             await returnDate.click();
         });
         await test.step('Click on Search', async () => {
-            await searchButton.waitFor({state: "visible"});
-            await searchButton.hover();
-            await searchButton.click();
-            await AIExpressFirstFlight.waitFor({state: "visible"});
+            await Promise.all([
+                AIExpressFirstFlight.waitFor({state: "visible"}),
+                searchButton.click()
+            ]);
         });
         await test.step('Print Flight Details for First AI Express Flight', async () => {
             console.log(`Flight Details: ${await departTime.innerText()}, ${await arrivalTime.innerText()}, 
