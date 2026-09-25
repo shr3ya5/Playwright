@@ -1,6 +1,4 @@
 import {test,expect, Browser, Page, chromium} from '@playwright/test';
-import { randomFill } from 'crypto';
-import { add } from 'winston';
 
 test.describe('Interacting with all web elements', () => {
 

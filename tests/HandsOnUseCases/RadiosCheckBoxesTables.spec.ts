@@ -9,9 +9,7 @@ test.describe('Handling Radios Checkboxes and Tables @RCT', () => {
     let checkBox1: Locator;
     let checkBox2: Locator;
     let checkBox3: Locator;
-    let promptButton: Locator;
     let tableText: Locator;
-    let message: any;
     let page: Page;
     let browser: Browser;
 
