@@ -50,10 +50,14 @@ const baseConfig: any = {
   /* Configure projects for major browsers */
   projects: [
     {
+      name: 'edge',
+      use: {  ...devices['Desktop Edge'], channel: 'msedge' },
+    },
+    /*
+    {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-    /*
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
