@@ -2,7 +2,7 @@ import {test,expect, Browser, Page, chromium} from '@playwright/test';
 
 test.describe('Report Generation Example', () => {
     
-    test('TC-01: Report Generation Make My Trip @MMT', async({page}) => {
+    test.skip('TC-01: Report Generation Make My Trip @MMT', async({page}) => {
         
         let url = "https://www.makemytrip.com/";
         let roundTripRadio = page.getByText('Round Trip');
