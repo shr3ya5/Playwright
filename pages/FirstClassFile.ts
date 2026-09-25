@@ -1,5 +1,5 @@
 import {Page, Locator, expect} from '@playwright/test';
-import {generatePhoneNumber} from '../../HandsOn/tests/utils/CommonlyUsedFunctions';
+import {generatePhoneNumber} from '../tests/utils/CommonlyUsedFunctions';
 
 export class FirstClassExample {
     private readonly page: Page;
