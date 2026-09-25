@@ -1,0 +1,102 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: HandsOnUseCases\FileUploadsDownloads.spec.ts >> File Uploads and Downloads >> TC-01: File Upload Orange HRM
+- Location: tests\HandsOnUseCases\FileUploadsDownloads.spec.ts:5:9
+
+# Error details
+
+```
+Test timeout of 60000ms exceeded.
+```
+
+```
+Error: locator.waitFor: Test timeout of 60000ms exceeded.
+Call log:
+  - waiting for locator('input[type="file"]')
+
+```
+
+# Test source
+
+```ts
+  1  | import {test,expect} from '@playwright/test';
+  2  | import fs from 'fs';
+  3  | test.describe('File Uploads and Downloads', () => {
+  4  | 
+  5  |     test('TC-01: File Upload Orange HRM', async( {page} ) => {
+  6  |         let url = "https://opensource-demo.orangehrmlive.com/";
+  7  |         let username = "Admin";
+  8  |         let password = "admin123";
+  9  |         let usernameInput = page.getByPlaceholder('Username');
+  10 |         let passwordInput = page.getByPlaceholder('Password');
+  11 |         let loginButton = page.getByRole('button', { name: /Login/ });
+  12 |         let PIMTab = page.getByRole('link', {name: /PIM/});
+  13 |         let configurationDD = page.locator('li').filter({hasText: "Configuration"}).first();
+  14 |         let dataImportOption = page.getByText('Data Import');
+  15 |         let fileInput = page.locator('input[type="file"]');
+  16 |         let uploadButton = page.getByRole('button', {name: /Upload/});
+  17 |         let popupOKButton = page.getByRole('button', {name: /Ok/});
+  18 |         //Login
+  19 |         await page.goto(url,{waitUntil: 'networkidle'});
+  20 |         await usernameInput.fill(username);
+  21 |         await passwordInput.fill(password);
+  22 |         await loginButton.click();
+  23 |         await page.waitForLoadState('networkidle');
+  24 |         await PIMTab.waitFor({state: 'visible'});
+  25 |         //Navigate to PIM tab
+  26 |         await PIMTab.click();
+  27 |         await configurationDD.waitFor({state: 'visible'});
+  28 |         await configurationDD.click();
+  29 |         await dataImportOption.click();
+  30 |         //Upload File
+> 31 |         await fileInput.waitFor({state: 'attached'});
+     |                         ^ Error: locator.waitFor: Test timeout of 60000ms exceeded.
+  32 |         await fileInput.setInputFiles('./data/importData.csv');
+  33 |         await uploadButton.click();
+  34 |         await popupOKButton.waitFor({state: "visible"});
+  35 |         await popupOKButton.click();
+  36 |     });
+  37 |     test('TC-02: File Download Sample Docs', async( {page} ) => {
+  38 |         let url = "https://opensource-demo.orangehrmlive.com/";
+  39 |         let username = "Admin";
+  40 |         let password = "admin123";
+  41 |         let usernameInput = page.getByPlaceholder('Username');
+  42 |         let passwordInput = page.getByPlaceholder('Password');
+  43 |         let loginButton = page.getByRole('button', { name: /Login/ });
+  44 |         let PIMTab = page.getByRole('link', {name: /PIM/});
+  45 |         let configurationDD = page.locator('li').filter({hasText: "Configuration"}).first();
+  46 |         let dataImportOption = page.getByText('Data Import');
+  47 |         let downloadLink = page.getByRole('link', {name: "Download"});
+  48 |         
+  49 |         //Login
+  50 |         await page.goto(url,{waitUntil: 'networkidle'});
+  51 |         await usernameInput.fill(username);
+  52 |         await passwordInput.fill(password);
+  53 |         await loginButton.click();
+  54 |         await page.waitForLoadState('networkidle');
+  55 |         //Navigate to PIM tab
+  56 |         await PIMTab.waitFor({state: 'visible'});
+  57 |         await PIMTab.click();
+  58 |         await page.waitForLoadState('networkidle');
+  59 |         await configurationDD.waitFor({state: 'visible'});
+  60 |         await configurationDD.click();
+  61 |         await dataImportOption.waitFor({state: 'visible'});
+  62 |         await dataImportOption.click();
+  63 |         await downloadLink.waitFor({state: 'visible'});
+  64 |         //Download File
+  65 |         const [download] = await Promise.all([
+  66 |             await page.waitForEvent('download'),
+  67 |             await downloadLink.click()
+  68 |         ]);
+  69 |         let filePath = await download.path();
+  70 |         await expect(fs.existsSync(filePath!)).toBeTruthy();
+  71 |         console.log(`Downloaded file: ${filePath}`);
+  72 |     });
+  73 | });
+```

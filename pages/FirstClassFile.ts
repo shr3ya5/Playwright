@@ -1,0 +1,95 @@
+import {Page, Locator, expect} from '@playwright/test';
+
+export class FirstClassExample {
+    private readonly page: Page;
+    private readonly url: string;
+    private readonly name: Locator;
+    private readonly email: Locator;
+    private readonly phone: Locator;
+    private readonly address: Locator;
+    private readonly gender: Locator;
+    private readonly Monday: Locator;
+    private readonly Tuesday: Locator;
+    private readonly Wednesday: Locator;
+    private readonly countryDD: Locator;
+    private readonly colorsDD: Locator;
+    private readonly sortedList: Locator;
+    private readonly datePicker1: Locator;
+    private readonly datePicker2: Locator;
+    private readonly anyDate: Locator;
+    private readonly uploadFile: Locator;
+    private readonly uploadMultipleFiles: Locator;
+    private readonly tableRow: Locator;
+
+    constructor(page: Page){
+        this.page = page;
+        this.url = "https://testautomationpractice.blogspot.com/";
+        this.name = page.getByPlaceholder('Enter Name');
+        this.email = page.getByPlaceholder('Enter EMail');
+        this.phone = page.getByPlaceholder('Enter Phone'); 
+        this.address = page.getByLabel('Address:'); 
+        this.gender = page.getByLabel('Female');
+        this.Monday = page.getByLabel('Monday');
+        this.Tuesday = page.getByLabel('Tuesday');
+        this.Wednesday = page.getByLabel('Wednesday');
+        this.countryDD = page.getByLabel('Country:');
+        this.colorsDD = page.getByLabel('Colors:');
+        this.sortedList = page.getByLabel('Sorted List:');
+        this.datePicker1 = page.locator('#datepicker');
+        this.datePicker2 = page.locator('#txtDate');
+        this.anyDate = page.locator('a[data-date="24"]');
+        this.uploadFile = page.locator('#singleFileInput');
+        this.uploadMultipleFiles = page.locator('#multipleFilesInput');
+        this.tableRow = page.locator('table[name="BookTable"] tbody tr').nth(2);
+    }
+    // Function for interacting with all elements on the page
+    async CommonFunction(){
+
+        const phoneNumber = Math.floor(
+                                100000000 + Math.random() * 900000000
+                            ).toString();
+
+            //Navigate to page
+        await this.page.goto(this.url, {waitUntil: 'networkidle'});
+
+        // Fill input values
+        await this.name.fill('Test test');
+        await this.email.fill('Test@test.com');
+        await this.phone.fill(phoneNumber);
+        await this.address.fill('Whatever street');
+
+        //Select RADIO AND CHECKBOXES
+        await this.gender.check();
+        await this.Monday.check();
+        await this.Tuesday.check();
+        await this.Wednesday.check();
+
+        //Select Dropdowns
+        await this.countryDD.selectOption('India');
+        await this.colorsDD.selectOption(['Red', 'White']);
+
+        //Sort lists and verify sort order
+        let actualList = await this.sortedList.allInnerTexts(); 
+        let expectedList = await actualList.sort();
+        await expect(expectedList).toEqual(actualList);
+
+        //Select dates
+        await this.datePicker1.fill('07/08/2001');
+        await this.datePicker2.click();
+        await this.anyDate.click();
+
+        //Log something from table row in console
+        let TableContents = await this.tableRow.allInnerTexts();
+        console.log(`Static Table Row content: ${TableContents}`);
+
+        //Upload files
+        await this.uploadFile.setInputFiles('./data/Push_Playwright_Code_to_GitHub_Step_by_Step.txt');
+        await this.uploadMultipleFiles.setInputFiles([
+            './data/loginData.csv',
+            './data/loginData.json'
+        ]);
+    }
+    
+
+    
+};
