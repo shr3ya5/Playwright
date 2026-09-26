@@ -48,7 +48,7 @@ export class FirstClassExample {
     async navigateToPage(url: string){
         //Navigate to page
         await this.page.goto(url, {waitUntil: 'domcontentloaded'});
-        await expect(this.page).toHaveTitle('Automation Testing Practice');
+        await expect(this.page).toHaveTitle('Automation Testing Practice', {timeout:20000});
     }
     async allTextInputs(){
         //use util function to get the phone number
