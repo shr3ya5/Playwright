@@ -33,7 +33,7 @@ test.describe('Interacting with all web elements', () => {
         let tableRow = await page.locator('table[name="BookTable"] tbody tr').nth(2).allInnerTexts();
         let title = page.locator('h1');
         let mouseHoverText = page.locator('p').filter({hasText: "Move the mouse over the button to open the dropdown menu."});
-
+        // Calculate number of 9 digit value
         const phoneNumber = Math.floor(
                                 100000000 + Math.random() * 900000000
                             ).toString();
