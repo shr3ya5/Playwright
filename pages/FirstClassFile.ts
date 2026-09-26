@@ -47,7 +47,7 @@ export class FirstClassExample {
     // Navigate to the page 
     async navigateToPage(url: string){
         //Navigate to page
-        await this.page.goto(url, {waitUntil: 'networkidle'});
+        await this.page.goto(url, {waitUntil: 'domcontentloaded'});
         await expect(this.page).toHaveTitle('Automation Testing Practice');
     }
     async allTextInputs(){
