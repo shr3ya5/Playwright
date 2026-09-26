@@ -38,7 +38,7 @@ test.describe('Interacting with all web elements', () => {
                                 100000000 + Math.random() * 900000000
                             ).toString();
 
-        await page.goto(url, {waitUntil: 'networkidle'});
+        await page.goto(url, {waitUntil: 'domcontentloaded'});
         await expect(title).toContainText('Automation Testing Practice');
         await name.fill('Test test');
         await email.fill('Test@test.com');
