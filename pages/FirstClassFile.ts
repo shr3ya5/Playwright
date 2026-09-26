@@ -48,6 +48,7 @@ export class FirstClassExample {
     async navigateToPage(url: string){
         //Navigate to page
         await this.page.goto(url, {waitUntil: 'networkidle'});
+        await expect(this.page).toHaveTitle('Automation Testing Practice');
     }
     async allTextInputs(){
         //use util function to get the phone number
@@ -72,32 +73,40 @@ export class FirstClassExample {
         await this.uploadFile.setInputFiles(singleFile);
         await this.uploadMultipleFiles.setInputFiles(multipleFiles);
     }
-    // Function for interacting with all elements on the page
-    async CommonFunction(){
-
-        //Select RADIO AND CHECKBOXES
+    async checkRadiosAndBoxes(){
+         //Select RADIO AND CHECKBOXES
         await this.gender.check();
+        await expect(this.gender).toBeChecked();
         await this.Monday.check();
         await this.Tuesday.check();
         await this.Wednesday.check();
+    }
+    async selectDropdowns(){
 
         //Select Dropdowns
         await this.countryDD.selectOption('India');
         await this.colorsDD.selectOption(['Red', 'White']);
+        await expect(this.colorsDD).toContainText('Red');
+    }
+    async verifySortedList(){
 
         //Sort lists and verify sort order
         let actualList = await this.sortedList.allInnerTexts(); 
         let expectedList = await actualList.sort();
         await expect(expectedList).toEqual(actualList);
+    }
+    async selectDates(){
 
-        //Select dates
+         //Select dates
         await this.datePicker1.fill('07/08/2001');
         await this.datePicker2.click();
         await this.anyDate.click();
+    }
+    // Function for interacting with all elements on the page
+    async printTableRow(){
 
         //Log something from table row in console
-        let TableContents = await this.tableRow.allInnerTexts();
+        let TableContents = (await this.tableRow.allInnerTexts()).toString().replace(/[\n\r\s]+/g,' ');
         console.log(`Static Table Row content: ${TableContents}`);
-
     }
 };

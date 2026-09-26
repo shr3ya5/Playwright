@@ -1,19 +1,12 @@
-import {test} from '@playwright/test';
-import {FirstClassExample} from '../../pages/FirstClassFile';
+import { test } from '../../fixtures/SimpleFixture';
 import fileNames from '../../data/FileNames.json';
 
-test.describe('Interacting with all web elements', () => {
+test.describe('Interacting with all web elements using fixture', () => {
 
-    test('TC-01: Web Elements Interaction @POM1', async({page}) => {
-       let url = "https://testautomationpractice.blogspot.com/"; 
-       let singleFile = fileNames.singleFile;
-       let multipleFiles = fileNames.multipleFiles;
+    test('TC-01: Web Elements Interaction via fixture @POMFixture', async ({ firstClassExample }) => {
+       const singleFile = fileNames.singleFile;
+       const multipleFiles = fileNames.multipleFiles;
 
-       const firstClassExample = new FirstClassExample(page);
-
-       await test.step('Navigate to the Page', async() => {
-            await firstClassExample.navigateToPage(url);
-       });
        await test.step('Enter all the input boxes', async() => {
             await firstClassExample.allTextInputs();
        });
@@ -33,13 +26,13 @@ test.describe('Interacting with all web elements', () => {
             await firstClassExample.selectDates();
        });
        await test.step('Upload files on the page', async() => {
-            await firstClassExample.uploadInputFiles(singleFile,multipleFiles);
+            await firstClassExample.uploadInputFiles(singleFile, multipleFiles);
        });
        await test.step('Print Table Row content', async() => {
             await firstClassExample.printTableRow();
        });
        await test.step('Final Step reached', async() => {
-            console.log(`All steps executed successfully !`);
+            console.log('All steps executed successfully via fixture!');
        }); 
     });
 });
